@@ -1,0 +1,40 @@
+<h3>Create an account</h3>
+<form (click)="onSubmit()" class="ui form" [formGroup]="authForm">
+    <!-- <div class="field">
+        <label>Username</label>
+        <input formControlName="username" />
+    </div> -->
+    <!-- <app-input label="Username" [control]="$any(authForm.controls.username)"></app-input> -->
+    <app-input label="Username" inputType="text" [control]="$any(authForm.get('username'))"></app-input>
+
+    <!-- <div class="field">
+        <label>Password</label>
+        <input formControlName="password" />
+    </div> -->
+    <app-input label="Password" inputType="password" [control]="$any(authForm.get('password'))"></app-input>
+
+    <!-- <div class="field">
+        <label>Password Confirmation</label>
+        <input formControlName="passwordConfirmation" />
+    </div> -->
+    <app-input label="Password Confirmation" inputType="password"
+        [control]="$any(authForm.get('passwordConfirmation'))"></app-input>
+
+    <div *ngIf="authForm.get('password')?.touched && authForm.get('passwordConfirmation')?.touched && authForm.errors"
+        class="ui red basic label">
+        <p *ngIf="authForm.errors?.['passwordDontMatch']">Password and Password Confirmation must match</p>
+        <p *ngIf="authForm.errors?.['noConnection']">No internet connection detected, failed to sign up</p>
+        <p *ngIf="authForm.errors?.['unknownError']">Unknown error. We have no idea what is happening. Try again later!
+        </p>
+    </div>
+
+    <div>
+        <button class=" ui submit button primary" [disabled]="authForm.invalid">Submit</button>
+    </div>
+</form>
+
+<!-- <br>
+<p>Username status: {{authForm.get('username')?.errors | json}}</p>
+<p>Password status: {{authForm.get('password')?.errors | json}}</p>
+<p>Password Confirmation status: {{authForm.get('passwordConfirmation')?.errors | json}}</p>
+<p>Password Match status: {{authForm.errors | json}}</p> -->
